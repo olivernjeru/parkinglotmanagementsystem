@@ -7,4 +7,4 @@ Their data is stored in the database when they check in.
 When checking out, they enter their ticket number and their details are fetched from the database and cost of parking is also calculated and presented to the owner of the vehicle.
 They then proceed to make the required payment and then they are allowed to exit the building.
 That's it, pretty cool huh!!
-PS: I don't know how to include the database for it here.
+
