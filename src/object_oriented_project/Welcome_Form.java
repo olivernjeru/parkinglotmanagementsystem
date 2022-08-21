@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Welcome_Form extends javax.swing.JFrame {
 
+    // something important in oop
+    // establishing a connection with the database
     public Welcome_Form() {
         initComponents();
         Connection conn;
