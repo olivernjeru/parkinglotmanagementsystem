@@ -1,4 +1,4 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 public class Parking_Space_Details_Form extends javax.swing.JFrame {
 
-    private static Statement st;
-    private static ResultSet rs;
-    private static Connection conn;
+    Statement st;
+    ResultSet rs;
+    Connection conn;
     
     String numberplate;
     String time;
@@ -118,7 +118,7 @@ public class Parking_Space_Details_Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-parkingspace=(String)parkingSpaceComboBox.getSelectedItem();
+        parkingspace=(String)parkingSpaceComboBox.getSelectedItem();
         Ticket_Print_Details_Form popup3 = new Ticket_Print_Details_Form();
         popup3.setVisible(true);
         popup3.setNumberplate(numberplate);
@@ -152,10 +152,8 @@ parkingspace=(String)parkingSpaceComboBox.getSelectedItem();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Parking_Space_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Parking_Space_Details_Form().setVisible(true);
         });
     }
 

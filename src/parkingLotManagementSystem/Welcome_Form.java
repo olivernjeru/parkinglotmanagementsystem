@@ -1,22 +1,9 @@
-package object_oriented_project;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Scanner;
+package parkingLotManagementSystem;
 
 public class Welcome_Form extends javax.swing.JFrame {
 
-    // something important in oop
-    // establishing a connection with the database
     public Welcome_Form() {
         initComponents();
-        Connection conn;
-        PreparedStatement pr;
-        ResultSet rs;
-        Statement state;
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -63,10 +50,8 @@ public class Welcome_Form extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Welcome_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Welcome_Form().setVisible(true);
         });
     }
 

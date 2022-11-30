@@ -1,4 +1,4 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ public class Receipt_Details_Form extends javax.swing.JFrame {
     String parkingspace;
     String ticketnumberconfirmation;
     String time1;
+    String ticketnumber;
    
 
     public String getTicketnumberconfirmation() {
@@ -47,7 +49,6 @@ public class Receipt_Details_Form extends javax.swing.JFrame {
     public void setTicketnumber(String ticketnumber) {
         this.ticketnumber = ticketnumber;
     }
-    String ticketnumber;
 
     public String getTime() {
         return time;
@@ -248,71 +249,66 @@ public class Receipt_Details_Form extends javax.swing.JFrame {
     private void generateReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReceiptButtonActionPerformed
         String ticketnumber1=null;
         String numberplate1=null;
-        
         String checkintime= null;
         String checkintimeselector = "SELECT * FROM `objectorientedprojectdatabase` WHERE `ticketnumber`=ticketnumber";
         try {
 
-            ps = conn.prepareStatement(checkintimeselector);
-            rs = ps.executeQuery(checkintimeselector);
-            while (rs.next()) {
-                ticketnumber1 = (rs.getString("ticketnumber"));
-                        numberplate1 = (rs.getString("numberplate"));
-                        
-                                
-                        checkintime = (rs.getString("checkintime"));
-            }
-            numberPlateLabel.setText(ticketnumber);
-            timeCheckedInLabel.setText(checkintime);
-            numberPlateLabel.setText(numberplate);
-        } catch (Exception e) {
+        ps = conn.prepareStatement(checkintimeselector);
+        rs = ps.executeQuery(checkintimeselector);
+        while (rs.next()) {
+            ticketnumber1 = (rs.getString("ticketnumber"));
+            numberplate1 = (rs.getString("numberplate"));          
+            checkintime = (rs.getString("checkintime"));
+        }
+        numberPlateLabel.setText(ticketnumber);
+        timeCheckedInLabel.setText(checkintime);
+        numberPlateLabel.setText(numberplate);
+        } catch (SQLException e) {
             System.out.println("Error:" + e);
         }
         
         String ticketnumberselector = "SELECT * FROM `objectorientedprojectdatabase` WHERE `ticketnumber`=ticketnumber";
         try {
-
             ps = conn.prepareStatement(ticketnumberselector);
             rs = ps.executeQuery(ticketnumberselector);
             while (rs.next()) {
-                ticketnumber1 = (rs.getString("ticketnumber"));
-                        
+                ticketnumber1 = (rs.getString("ticketnumber"));      
             }
             ticketNumberLabel.setText(ticketnumber);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error:" + e);
         }
         
         String checkouttime = null;
         String checkouttimeselector = "SELECT * FROM `objectorientedprojectdatabase` WHERE `ticketnumber`=ticketnumber";
         try {
-
             ps = conn.prepareStatement(checkouttimeselector);
             rs = ps.executeQuery(checkouttimeselector);
             while (rs.next()) {
                 checkouttime = (rs.getString("checkouttime"));
             }
             timeCheckedOutLabel.setText(checkouttime);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error:" + e);
         }
         try {
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-
             Date date1 = format.parse(checkintime);
             Date date2 = format.parse(checkouttime);
+            
             long difference = date2.getTime() - date1.getTime();
             long diffHours = difference / (60 * 60 * 1000) % 24;
+            
             String timedifference = Long.toString(diffHours);
+            
             timeSpentLabel.setText(timedifference);
-
+            
             double amount;
-
+            
             if (diffHours <= 1) {
                 amount = 50;
                 amountToPayLabel.setText(Double.toString(amount));
-
             } else {
                 if (diffHours >= 2 && diffHours <= 3) {
                     amount = 150;
@@ -350,7 +346,7 @@ public class Receipt_Details_Form extends javax.swing.JFrame {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (ParseException e) {
             System.out.println("Error:" + e);
         }
 
@@ -381,10 +377,8 @@ public class Receipt_Details_Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Receipt_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Receipt_Details_Form().setVisible(true);
         });
     }
 

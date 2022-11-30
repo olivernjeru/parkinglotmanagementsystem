@@ -1,5 +1,6 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -64,7 +65,6 @@ public class Ticket_Print_Details_Form extends javax.swing.JFrame {
     public Ticket_Print_Details_Form() {
        
         try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/object oriented project?useTimezone=true&serverTimezone=UTC", "root", "");
             st = conn.createStatement();
@@ -220,27 +220,25 @@ public class Ticket_Print_Details_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void generateTicketNumberTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateTicketNumberTextActionPerformed
-{
-            Random generator = new Random();
-            int ticket_number = generator.nextInt(1000000) + 1;
-            String val = String.valueOf(ticket_number);
-            ticketNumber.setText(val);
-        }
+        Random generator = new Random();
+        int ticket_number = generator.nextInt(1000000) + 1;
+        String val = String.valueOf(ticket_number);
+        ticketNumber.setText(val);
 
         try {
             st.execute("INSERT INTO ticketnumber(ticketnumber)" + "VALUES('" + ticketNumber.getText() + "')");
 
             JOptionPane.showMessageDialog(null, "Record Has Been Added");
 
-        } catch (Exception ex) {
+        } catch (HeadlessException | SQLException ex) {
             //JOptionPane.showMessageDialog(null, "Record has not been Added");
             System.out.println("Error " + ex);
         }
     }//GEN-LAST:event_generateTicketNumberTextActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-ticketnumber=ticketNumber.getText();
-Check_Out_Details_Form popup4 = new Check_Out_Details_Form();
+        ticketnumber=ticketNumber.getText();
+        Check_Out_Details_Form popup4 = new Check_Out_Details_Form();
         popup4.setVisible(true);
         popup4.setNumberplate(numberplate);
         popup4.setTime(time);
@@ -250,16 +248,9 @@ Check_Out_Details_Form popup4 = new Check_Out_Details_Form();
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void generateTickettButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateTickettButtonActionPerformed
-
-        
-                numberPlateDisplay.setText(numberplate);
-
-        
-                parkingLevelDisplay.setText(parkinglevel);
-           
-       
-                parkingSpaceDisplay.setText(parkingspace);
-            
+        numberPlateDisplay.setText(numberplate);
+        parkingLevelDisplay.setText(parkinglevel);
+        parkingSpaceDisplay.setText(parkingspace);
     }//GEN-LAST:event_generateTickettButtonActionPerformed
 
     public static void main(String args[]) {
@@ -287,10 +278,8 @@ Check_Out_Details_Form popup4 = new Check_Out_Details_Form();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ticket_Print_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Ticket_Print_Details_Form().setVisible(true);
         });
     }
 

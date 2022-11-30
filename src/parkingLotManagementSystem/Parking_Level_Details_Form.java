@@ -1,17 +1,15 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 
 public class Parking_Level_Details_Form extends javax.swing.JFrame {
 
-    private static Statement st;
-    private static ResultSet rs;
-    private static Connection conn;
+    public static Statement st;
+    public static Connection conn;
 
     String numberplate;
     String time;
@@ -130,12 +128,12 @@ public class Parking_Level_Details_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-parkinglevel=(String)parkingLevelText.getSelectedItem();
-        Parking_Space_Details_Form popup2 = new Parking_Space_Details_Form();
-        popup2.setVisible(true);
-        popup2.setNumberplate(numberplate);
-        popup2.setTime(time);
-        popup2.setParkinglevel(parkinglevel);
+    parkinglevel=(String)parkingLevelText.getSelectedItem();
+    Parking_Space_Details_Form popup2 = new Parking_Space_Details_Form();
+    popup2.setVisible(true);
+    popup2.setNumberplate(numberplate);
+    popup2.setTime(time);
+    popup2.setParkinglevel(parkinglevel);
     }//GEN-LAST:event_nextButtonActionPerformed
 
     public static void main(String args[]) {
@@ -163,10 +161,8 @@ parkinglevel=(String)parkingLevelText.getSelectedItem();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Parking_Level_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Parking_Level_Details_Form().setVisible(true);
         });
     }
 

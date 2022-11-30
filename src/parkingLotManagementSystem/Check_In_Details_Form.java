@@ -1,5 +1,6 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,18 +10,17 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 public class Check_In_Details_Form extends javax.swing.JFrame {
-private static Statement st;
-private static ResultSet rs;
-private static Connection conn;
+    private static Statement st;
+    private static Connection conn;
 
-Calendar cal=new GregorianCalendar();
-        int hours=cal.get(Calendar.HOUR);
-        int minutes=cal.get(Calendar.MINUTE);
-        int sec=cal.get(Calendar.SECOND);
-        String time=hours+":"+minutes +":"+sec;
-        String numberplate;
-        
-        public String getTime() {
+    Calendar cal=new GregorianCalendar();
+    int hours=cal.get(Calendar.HOUR);
+    int minutes=cal.get(Calendar.MINUTE);
+    int sec=cal.get(Calendar.SECOND);
+    String time=hours+":"+minutes +":"+sec;
+    String numberplate;
+
+    public String getTime() {
         return time;
     }
     public void setTime(String time) {
@@ -35,15 +35,15 @@ Calendar cal=new GregorianCalendar();
 
     public Check_In_Details_Form() {
         try{
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/object oriented project?useTimezone=true&serverTimezone=UTC","root","");
-        st=conn.createStatement();  
-    }
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/object oriented project?useTimezone=true&serverTimezone=UTC","root","");
+            st=conn.createStatement();  
+        }
         catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error:" +e);
-    }
-        initComponents();
-    } 
+        }
+            initComponents();
+        } 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -58,7 +58,6 @@ Calendar cal=new GregorianCalendar();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         numberPlateLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        numberPlateLabel.setForeground(new java.awt.Color(0, 0, 0));
         numberPlateLabel.setText("Enter Your Car's Number Plate:");
 
         resetButton.setText("Reset");
@@ -139,31 +138,27 @@ Calendar cal=new GregorianCalendar();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInButtonActionPerformed
-                numberplate=numberPlateText.getText();
-               
-                 try{        
-                        st.execute("INSERT INTO checkintime(checkintime)"+"VALUES('"+time+"')");
-                             //JOptionPane.showMessageDialog(null,"Record Has Been Added");
-                             
+        numberplate=numberPlateText.getText();  
+        try{        
+            st.execute("INSERT INTO checkintime(checkintime)"+"VALUES('"+time+"')");
+            //JOptionPane.showMessageDialog(null,"Record Has Been Added");                  
         }
-            catch(Exception ex){
-                   //JOptionPane.showMessageDialog(null, "Record has not been Added");
-                    System.out.println("Error " +ex);
-                    }
-                 try{        
-                        st.execute("INSERT INTO `numberplate`(`numberplate`)" + " VALUES('"+numberplate+"')");
-                        
-                             JOptionPane.showMessageDialog(null,"Record Has Been Added");
-                             
+        catch(SQLException ex){
+            //JOptionPane.showMessageDialog(null, "Record has not been Added");
+            System.out.println("Error " +ex);
         }
-            catch(Exception ex){
-                   JOptionPane.showMessageDialog(null, "Record has not been Added");
-                    System.out.println("Error " +ex);
-                    }
-                Parking_Level_Details_Form popup10= new Parking_Level_Details_Form();
-                popup10.setVisible(true);
-                popup10.setNumberplate(numberplate);
-                popup10.setTime(time);
+        try{        
+            st.execute("INSERT INTO `numberplate`(`numberplate`)" + " VALUES('"+numberplate+"')");
+            JOptionPane.showMessageDialog(null,"Record Has Been Added");           
+        }
+        catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(null, "Record has not been Added");
+            System.out.println("Error " +ex);
+        }
+        Parking_Level_Details_Form popup10= new Parking_Level_Details_Form();
+        popup10.setVisible(true);
+        popup10.setNumberplate(numberplate);
+        popup10.setTime(time);
     }//GEN-LAST:event_checkInButtonActionPerformed
 
     
@@ -177,10 +172,8 @@ Calendar cal=new GregorianCalendar();
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Check_In_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Check_In_Details_Form().setVisible(true);
         });
     }
 

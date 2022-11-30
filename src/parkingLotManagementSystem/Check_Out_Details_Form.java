@@ -1,5 +1,6 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -90,7 +91,6 @@ public class Check_Out_Details_Form extends javax.swing.JFrame {
 
     public Check_Out_Details_Form() {
        try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/object oriented project?useTimezone=true&serverTimezone=UTC", "root", "");
             st = conn.createStatement();
@@ -171,7 +171,7 @@ public class Check_Out_Details_Form extends javax.swing.JFrame {
             ps.execute();
             JOptionPane.showMessageDialog(null, "Record Has Been Added");
 
-        } catch (Exception ex) {
+        } catch (HeadlessException | SQLException ex) {
             //JOptionPane.showMessageDialog(null, "Record has not been Added");
             System.out.println("Error " + ex);
         }
@@ -211,10 +211,8 @@ public class Check_Out_Details_Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Check_Out_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Check_Out_Details_Form().setVisible(true);
         });
     }
 

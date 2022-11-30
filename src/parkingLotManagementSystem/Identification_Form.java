@@ -1,4 +1,4 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
 public class Identification_Form extends javax.swing.JFrame {
 
@@ -89,10 +89,8 @@ public class Identification_Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Identification_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Identification_Form().setVisible(true);
         });
     }
 

@@ -1,4 +1,4 @@
-package object_oriented_project;
+package parkingLotManagementSystem;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -150,23 +150,23 @@ public class Login_Details_Form extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameText.getText();
-        String password = passwordField.getText();
+        String pass = passwordField.getText();
         {
-            if (username.trim().isEmpty() && password.trim().isEmpty()) {
+            if (username.trim().isEmpty() && pass.trim().isEmpty()) {
                 usernameNullVerifier.setText("Please Enter Your Username");
                 passwordNullVerifier.setText("Please Enter Your Password");
             } else {
                 if (username.trim().isEmpty()) {
                     usernameNullVerifier.setText("Please Enter Your Username");
                 } else {
-                    if (password.trim().isEmpty()) {
+                    if (pass.trim().isEmpty()) {
                         passwordNullVerifier.setText("Please Enter Your Password");
                     }
                 }
 
             }
         }
-        if (password.contains("admin") && (username.contains("admin"))) {
+        if (pass.contains("admin") && (username.contains("admin"))) {
             usernameText.setText(null);
             passwordField.setText(null);
             JOptionPane.showMessageDialog(null, "Welcome");
@@ -226,10 +226,8 @@ public class Login_Details_Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login_Details_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login_Details_Form().setVisible(true);
         });
     }
 
